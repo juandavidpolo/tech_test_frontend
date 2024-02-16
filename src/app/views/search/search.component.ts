@@ -46,6 +46,7 @@ export class SearchComponent implements OnInit {
         city: "Neiva",
       }
       console.log("user: ", user)
+      localStorage.setItem('userData', JSON.stringify(user));
       this.store.pipe(select(selectUser)).subscribe(currentUser => {
         console.log("currentUser: ", currentUser)
         if (!currentUser) {

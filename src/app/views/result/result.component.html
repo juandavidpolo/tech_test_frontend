@@ -4,31 +4,31 @@
       <form>
         <div class="mb-3">
           <label class="form-label">Primer Nombre</label>
-          <input type="text" name="firstName" class="form-control" [ngModel]="(user$ | async) ? (user$ | async).firstName : ''" [ngModelOptions]="{ standalone: false }" disabled />
+          <input type="text" name="firstName" class="form-control" [value]="userData.firstName"  disabled />
         </div>
         <div class="mb-3">
           <label class="form-label">Segundo Nombre</label>
-          <input type="text" name="middleName" class="form-control" [ngModel]="(user$ | async)?(user$ | async).middleName: ''" [ngModelOptions]="{standalone: true}" disabled />
+          <input type="text" name="middleName" class="form-control" [value]="userData.middleName"  disabled />
         </div>
         <div class="mb-3">
           <label class="form-label">Primer Apellido</label>
-          <input type="text" name="lastName1" class="form-control" [ngModel]="(user$ | async)?(user$ | async).lastName1 : ''" [ngModelOptions]="{standalone: true}" disabled />
+          <input type="text" name="lastName1" class="form-control" [value]="userData.lastName1"  disabled />
         </div>
         <div class="mb-3">
           <label class="form-label">Segundo Apellido</label>
-          <input type="text" name="lastName2" class="form-control" [ngModel]="(user$ | async)?(user$ | async).lastName2: ''" [ngModelOptions]="{standalone: true}" disabled />
+          <input type="text" name="lastName2" class="form-control" [value]="userData.lastName2"  disabled />
         </div>
         <div class="mb-3">
           <label class="form-label">Telefono</label>
-          <input type="tel" name="phone" class="form-control" [ngModel]="(user$ | async)?(user$ | async).phone : ''" [ngModelOptions]="{standalone: true}" disabled />
+          <input type="tel" name="phone" class="form-control" [value]="userData.phone"  disabled />
         </div>
         <div class="mb-3">
           <label class="form-label">Dirección</label>
-          <input type="text" name="address" class="form-control" [ngModel]="(user$ | async)?(user$ | async).address : ''" [ngModelOptions]="{standalone: true}" disabled />
+          <input type="text" name="address" class="form-control" [value]="userData.address"  disabled />
         </div>
         <div class="mb-3">
           <label class="form-label">Ciudad de Residencia</label>
-          <input type="text" name="city" class="form-control" [ngModel]="(user$ | async)?(user$ | async).city : ''" [ngModelOptions]="{standalone: true}" disabled />
+          <input type="text" name="city" class="form-control" [value]="userData.city"  disabled />
         </div>
         <div class="mb-3 mt-3">
           <button class="btn btn-primary" (click)="onClick()">Volver</button>
