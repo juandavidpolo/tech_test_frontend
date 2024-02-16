@@ -1,14 +1,5 @@
-export interface UserState {
-  isSet: boolean,
-  user: object
-}
+import { UserState } from '../user.state/user.reducer';
 
-export interface User {
-  firstName:string,
-  middleName:string,
-  lastName1:string,
-  lastName2:string,
-  phone: string,
-  address: string,
-  city: string
+export interface AppState {
+  user: UserState;
 }

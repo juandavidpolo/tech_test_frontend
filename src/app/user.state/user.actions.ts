@@ -1,6 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { UserState, User } from '../entity/user';
 
-export const setUser = createAction('setUser', props<User>());
-export const resetUser = createAction('clearUser');
-export const getUser = createAction('getUser');
+export const setUser = createAction('[User] Set User', props<{ user: any }>());
+export const clearUser = createAction('[User] Clear User');

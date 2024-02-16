@@ -1,19 +1,31 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
 
-import { RouterOutlet } from '@angular/router';
+import { AppComponent } from './app.component';
+import { SearchComponent } from './views/search/search.component';
+import { ResultComponent } from './views/result/result.component';
 
-import { StoreModule } from '@ngrx/store';
-import { userReducer } from './user.state/user.reducer';
+//import { SearchModule } from './views/search/search.component';
+import { ResultModule } from './views/result/result.module';
+
+const routes: Routes = [
+  { path: '', component: SearchComponent },
+  { path: '/result', component: ResultComponent }
+];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AppComponent,
+    ResultComponent
+  ],
   imports: [
+    SearchComponent,
     BrowserModule,
-    RouterOutlet,
-    StoreModule.forRoot({userData: userReducer})],
+    RouterModule.forRoot(routes)
+  ],
   providers: [],
-  bootstrap: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
 

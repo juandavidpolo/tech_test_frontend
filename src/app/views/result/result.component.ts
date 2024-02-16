@@ -1,50 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { NgModule, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { UserState, User } from '../../entity/user';
-import { selectUser } from '../../selectors/selectors';
+import { clearUser } from '../../user.state/user.actions';
+import { selectUserData } from '../../selectors/selectors';
+import { AppState } from '../../entity/user';
 
 @Component({
   selector: 'app-result',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './result.component.html',
   styleUrls: ['./result.component.scss']
 })
-export class ResultComponent implements OnInit {
-  user$!: Observable<any>;
+export class ResultComponent {
+  @Input() item = '';
+  userData$: Observable<any> = new Observable<any>();
   userData: any;
-
-  constructor(private store: Store<User>, private router: Router) {
+  constructor(private store: Store<AppState>, private router: Router) {
     const userDataJSON = localStorage.getItem('userData');
+    console.log("result: ", userDataJSON)
     this.userData = userDataJSON ? JSON.parse(userDataJSON) : {};
+    this.userData$ = this.store.pipe(select(selectUserData));
+    console.log("test: ", this.userData$)
   }
 
-  ngOnInit(): void {
-    this.user$ = this.store.pipe(select(selectUser));
+  ngOnInit() {
+    this.userData$ = this.store.pipe(select(selectUserData));
   }
 
   onClick() {
     localStorage.removeItem('userData');
+    this.store.dispatch(clearUser())
     this.router.navigate(['']);
-    /*
-    this.user$.subscribe(user => {
-      console.log("User:", user);
-    });
-    */
   }
 }
-
-@NgModule({
-  declarations: [
-    ResultComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule
-  ]
-})
-export class ResultModule { }

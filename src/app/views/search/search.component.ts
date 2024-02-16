@@ -1,42 +1,35 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
 
-import { setUser, resetUser } from '../../user.state/user.actions';
-
-import { UserState } from '../../entity/user';
-import { selectUser } from '../../selectors/selectors';
+import { setUser, clearUser } from '../../user.state/user.actions';
+import { selectUserState } from '../../selectors/selectors';
+import { AppState } from '../../entity/user';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
+  standalone: true,
+  imports: [FormsModule]
 })
-export class SearchComponent implements OnInit {
-
+export class SearchComponent {
+  @Input() item = '';
   isDisabled: boolean;
   type: string;
   number: string;
 
-  constructor(private store: Store<UserState>, private router: Router) {
+  constructor(private store: Store<AppState>, private router: Router) {
     this.isDisabled = true;
     this.type = "";
     this.number = "";
   }
 
-  ngOnInit(): void {
-    this.store.pipe(select(selectUser)).subscribe(user => {
-      if (user) {
-        this.router.navigate(['/result']);
-      }
-    });
-  }
-
   setUserIfValid() {
     if (this.type === "c" && this.getNumberWithoutThousandSeparators(this.number) === "23445322") {
-      const user = {
+      const userData = {
         firstName: "Juan",
         middleName: "David",
         lastName1: "Polo",
@@ -45,20 +38,15 @@ export class SearchComponent implements OnInit {
         address: "Cra 23 # 23 - 32",
         city: "Neiva",
       }
-      console.log("user: ", user)
-      localStorage.setItem('userData', JSON.stringify(user));
-      this.store.pipe(select(selectUser)).subscribe(currentUser => {
-        console.log("currentUser: ", currentUser)
-        if (!currentUser) {
-          this.store.dispatch(setUser(user));
-          this.router.navigate(['/result']);
-        }
-      });
+      console.log("user: ", userData)
+      localStorage.setItem('userData', JSON.stringify(userData));
+      this.store.dispatch(setUser({ user: userData }));
+      this.router.navigate(['/result']);
     }
   }
 
   resetUser() {
-    this.store.dispatch(resetUser());
+    this.store.dispatch(clearUser());
   }
 
   onInputChange(event: Event){
@@ -99,9 +87,3 @@ export class SearchComponent implements OnInit {
     return number.replace(/,/g, '');
   }
 }
-
-@NgModule({
-  declarations: [SearchComponent],
-  imports: [FormsModule]
-})
-export class SearchModule { }

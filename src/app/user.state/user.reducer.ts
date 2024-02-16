@@ -1,29 +1,19 @@
-import { UserState, User } from '../entity/user';
 import { createReducer, on } from '@ngrx/store';
-import { setUser, resetUser, getUser } from './user.actions';
+import * as UserActions from './user.actions';
+
+export interface UserState {
+  user: any;
+}
 
 export const initialState: UserState = {
-  isSet: false,
-  user: {
-    firstName: "",
-    middleName: "",
-    lastName1: "",
-    lastName2: "",
-    phone: "",
-    address: "",
-    city: ""
-  }
+  user: null
 };
 
 export const userReducer = createReducer(
   initialState,
-  on(resetUser, (state) => initialState),
-  on(setUser, (state, payload) => {
-    console.log("test: ", state)
-    return {
-      ...state, user: payload
-    }
-
+  on(UserActions.setUser, (state, { user }) => {
+    console.log("set User: ", user)
+    return { ...state, user }
   }),
-  on(getUser, (state) => (state)),
+  on(UserActions.clearUser, state => ({ ...state, user: null }))
 );
