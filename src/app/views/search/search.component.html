@@ -1,0 +1,24 @@
+<div class="col-12 col-md-4">
+  <div class="card">
+    <div class="card-body">
+      <form (ngSubmit)="setUserIfValid()" #itemForm="ngForm">
+        <label>Todos los campos son obligatorios</label>
+        <div class="mb-3">
+          <label class="form-label">Tipo de documento</label>
+          <select class="form-select" [(ngModel)]="type" (change)="onInputChange($event)" [ngModelOptions]="{standalone: true}">
+            <option value=""></option>
+            <option value="c">Cedula de ciudadania</option>
+            <option value="p">Pasaporte</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Numero de documento</label>
+          <input type="text" name="number" class="form-control" [(ngModel)]="number" (change)="onInputChange($event)" [ngModelOptions]="{standalone: true}"/>
+        </div>
+        <div class="mb-3 mt-3">
+          <button type="submit" class="btn btn-primary" [disabled]="isDisabled">Buscar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

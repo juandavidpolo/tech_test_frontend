@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+button {
+  border-radius: 90px;
+  width: 100%;
+  text-align: center;
+}
+
+button:disabled{
+  background: #CCCCCC;
+}
+
+.card{
+  background: #EFEFEF;
+}
+
+label{
+  color: #BDBDBD;
+}
+
+.form-label{
+  color: #0d6efd;
+}
